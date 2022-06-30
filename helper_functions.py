@@ -30,7 +30,7 @@ def allowed_tag(element):
         return False
     if isinstance(element, Comment):
         return False
-    if "javascript" in element:
+    if "javascript" in element.lower():
         return False
     return True
 
@@ -43,9 +43,11 @@ def get_link_attributes(links):
             # Get html from link and soupify it
             soup = BeautifulSoup(requests.get(link).content, 'html.parser')
             # Get the title and if there is none, put the link in its place
-            title = soup.find('head').find('title').text
+            title = soup.find('head').find('title')
             if not title:
                 title = link
+            else:
+                title = title.text
             # Make all text on the website as strings in a list
             descriptions = filter(allowed_tag, soup.findAll(text=True))
             # Take the biggest piece of text
