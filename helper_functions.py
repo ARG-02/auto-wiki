@@ -22,6 +22,7 @@ def get_google_results(num_queries, search_query):
             print("No search results returned")
             return links
         links += [item['link'] for item in data.get("items")]
+
     return links
 
 
